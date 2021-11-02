@@ -15,6 +15,7 @@
     "node": true,
     "jest": true
   },
+  "ignorePatterns": ["**/*.js"],
   "rules": {
     "object-shorthand": ["error"],
     "object-curly-spacing": ["error", "always"],

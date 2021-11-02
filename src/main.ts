@@ -1,8 +1,20 @@
+import './config';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import helmet from 'helmet';
+import compression from 'compression';
+import morgan from 'morgan';
+import { ValidationPipe } from '@nestjs/common';
 
-async function bootstrap() {
+async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule);
-  await app.listen(3000);
+  app.setGlobalPrefix('api');
+  app.useGlobalPipes(new ValidationPipe({ transform: true, whitelist: true }));
+  app.enableCors();
+  app.use(helmet({ contentSecurityPolicy: false }));
+  app.use(compression());
+  app.use(morgan('combined'));
+  await app.listen(process.env.POST ?? 3000);
 }
-bootstrap();
+
+bootstrap().then();
