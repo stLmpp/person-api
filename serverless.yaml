@@ -18,3 +18,7 @@ functions:
       - http:
           method: any
           path: /{any+}
+
+custom:
+  optimize:
+    external: ['swagger-ui-dist']
