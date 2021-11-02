@@ -39,3 +39,5 @@ package.json.yarn
 ormconfig.js
 yarn.lock
 /frontend
+/.aws
+/.serverless
