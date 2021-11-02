@@ -27,6 +27,7 @@
     "@nestjs/common": "~8.1.2",
     "@nestjs/core": "~8.1.2",
     "@nestjs/platform-express": "~8.1.2",
+    "@nestjs/swagger": "~5.1.4",
     "@nestjs/typeorm": "~8.0.2",
     "@vendia/serverless-express": "~4.5.2",
     "class-transformer": "~0.4.0",
@@ -35,11 +36,13 @@
     "express": "~4.17.1",
     "helmet": "~4.6.0",
     "morgan": "~1.10.0",
+    "nestjs-rate-limiter": "~3.0.0",
     "pg": "~8.7.1",
     "reflect-metadata": "~0.1.13",
     "rimraf": "~3.0.2",
     "rxjs": "~7.4.0",
     "st-utils": "~2.4.1",
+    "swagger-ui-express": "~4.1.6",
     "typeorm": "~0.2.38"
   },
   "devDependencies": {
