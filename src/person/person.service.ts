@@ -8,24 +8,24 @@ import { IsNull, Not } from 'typeorm';
 export class PersonService {
   constructor(private personRespository: PersonRespository) {}
 
-  async add(dto: PersonAddDto): Promise<PersonEntity> {
-    return this.personRespository.save(dto);
+  async add(idUser: string, dto: PersonAddDto): Promise<PersonEntity> {
+    return this.personRespository.save({ ...dto, idUser });
   }
 
-  async update(idPerson: number, dto: PersonUpdateDto): Promise<PersonEntity> {
+  async update(idUser: string, idPerson: number, dto: PersonUpdateDto): Promise<PersonEntity> {
     await this.personRespository.update(idPerson, dto);
-    return this.findById(idPerson);
+    return this.findById(idUser, idPerson);
   }
 
-  async delete(idPerson: number): Promise<void> {
+  async delete(idUser: string, idPerson: number): Promise<void> {
     await this.personRespository.softDelete(idPerson);
   }
 
-  async findAll(): Promise<PersonEntity[]> {
-    return this.personRespository.find();
+  async findAll(idUser: string): Promise<PersonEntity[]> {
+    return this.personRespository.find({ where: { idUser } });
   }
 
-  async findById(idPerson: number): Promise<PersonEntity> {
+  async findById(idUser: string, idPerson: number): Promise<PersonEntity> {
     const person = await this.personRespository.findOne(idPerson);
     if (!person) {
       throw new NotFoundException('Person not found');
@@ -33,12 +33,12 @@ export class PersonService {
     return person;
   }
 
-  async findDeleted(): Promise<PersonEntity[]> {
-    return this.personRespository.find({ withDeleted: true, where: { deletedDate: Not(IsNull()) } });
+  async findDeleted(idUser: string): Promise<PersonEntity[]> {
+    return this.personRespository.find({ withDeleted: true, where: { deletedDate: Not(IsNull()), idUser } });
   }
 
-  async restore(idPerson: number): Promise<PersonEntity> {
+  async restore(idUser: string, idPerson: number): Promise<PersonEntity> {
     await this.personRespository.restore(idPerson);
-    return this.findById(idPerson);
+    return this.findById(idUser, idPerson);
   }
 }

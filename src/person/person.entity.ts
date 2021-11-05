@@ -1,4 +1,4 @@
-import { Column, DeleteDateColumn, Entity } from 'typeorm';
+import { Column, DeleteDateColumn, Entity, Index } from 'typeorm';
 import { BaseEntity } from '../shared/base-entity';
 import { PersonGenderEnum } from './person-gender.enum';
 
@@ -27,4 +27,8 @@ export class PersonEntity extends BaseEntity {
 
   @DeleteDateColumn({ type: 'timestamp', nullable: true })
   deletedDate?: Date | null;
+
+  @Index()
+  @Column({ type: 'character varying', length: 50, default: 'default' })
+  idUser!: string;
 }
